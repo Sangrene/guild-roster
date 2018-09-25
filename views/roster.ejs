@@ -1,0 +1,32 @@
+<form action="/roster/update" method="post">
+  <button type="submit" class="btn btn-info">Update</button>
+</form>
+<small>Dernière update il y a <%= lastUpdateSince %> </small>
+<p/>
+<table class="table">
+    <tr>
+      <th>Rôle</th>
+      <th>Nom</th>
+      <th>ilvl</th>
+      <th>iLvl coeur</th>
+      <th>Enchant ring 1</th>
+      <th>Enchant ring 2</th>
+      <th>Enchant hand</th>
+      <th>Cotisation</th>
+    </tr>
+    <% data.roster.forEach(function(member, index) { %>
+      <tr>
+        <td><%= member.role %></td>
+        <td><%= member.name %></td>
+        <td><%= member.ilvl %></td>
+        <td><%= member.heart %></td>
+        <td><%= member.finger1Enchant %></td>
+        <td><%= member.finger2Enchant %></td>
+        <td><%= member.mainHandEnchant %></td>
+        <td><input type="text" class="form-control" id="cotis_<%= index %>"></td>
+      </tr>
+    <% }); %>
+</table>
+<form action="" method="post">
+  <button type="button" class="btn btn-success">Sauvegarder</button>
+</form>
