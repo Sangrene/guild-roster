@@ -7,8 +7,11 @@ const moment = require("moment");
 router.get('/', function(req, res, next) {
   roster.get()
   .then(data => {
-    const lastUpdateDelta = moment(new Date().getTime() - data.lastUpdate);
-    res.render('index', { "data": data, "lastUpdateSince": lastUpdateDelta.format("HH:mm:ss")});
+    const lastUpdateDelta = moment.duration(moment().diff(moment(data.lastUpdate)));
+
+    res.render('index', {
+      "data": data,
+      "lastUpdateSince": lastUpdateDelta.days()+" jours, " + lastUpdateDelta.hours()+"h  "+lastUpdateDelta.minutes()+"m "+lastUpdateDelta.seconds()+"s"});
   });
 });
 

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const roster = require("./actions/roster");
 const createError = require('http-errors');
 const express = require('express');

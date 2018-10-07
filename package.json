@@ -6,8 +6,10 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
@@ -16,5 +18,8 @@
     "morgan": "~1.9.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }
