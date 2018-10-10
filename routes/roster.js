@@ -6,6 +6,9 @@ router.post('/update', function(req, res, next) {
   roster.update()
   .then(data => {
     res.redirect("/");
+  })
+  .catch(e => {
+    res.send(e);
   });
 });
 
@@ -22,5 +25,13 @@ router.post("/remove/:name", function(req, res, next){
     res.redirect("/");
   })
 });
+
+router.post("/commentaries", (req, res, next) => {
+  console.log(req.body);
+  roster.setCommentaries(req.body.commentaries)
+  .then(data => {
+    res.redirect("/");
+  })
+})
 
 module.exports = router;

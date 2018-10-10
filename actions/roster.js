@@ -73,7 +73,7 @@ const update = () => {
       members = data.roster;
       const detailsPromises = [];
       members.forEach((item, index) => {
-        detailsPromises.push(request(`https://eu.api.battle.net/wow/character/Archimonde/${item.name}?fields=items&locale=fr_FR&apikey=${process.env.BLIZZARD_KEY}`));
+        detailsPromises.push(request(`https://eu.api.battle.net/wow/character/Archimonde/${encodeURIComponent(item.name)}?fields=items&locale=fr_FR&apikey=${process.env.BLIZZARD_KEY}`));
       });
       return Promise.all(detailsPromises);
     })
@@ -91,7 +91,6 @@ const update = () => {
         updatedMember.mainHandEnchant = (item.items.mainHand.tooltipParams.enchant !== undefined);
         roster.push(updatedMember);
       });
-
       return saveRoster(roster);
     })
     .then(r => {
@@ -104,6 +103,27 @@ const update = () => {
   });
 }
 
+const setCommentaries = (commentaries) => {
+  return new Promise((resolve, reject) => {
+    if(!commentaries) resolve();
+    get()
+    .then(data => {
+      const members = data.roster;
+      commentaries.forEach((item) => {
+        members[item.index].commentary = item.value;
+      });
+      return saveRoster(members);n
+    })
+    .then(r => {
+      resolve(r);
+    })
+    .catch(e => {
+      console.log(e);
+      reject(e);
+    })
+  });
+}
+
 module.exports =  {
-  update, get, add, remove
+  update, get, add, remove, setCommentaries
 }

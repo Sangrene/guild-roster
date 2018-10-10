@@ -34,7 +34,12 @@
           <td><%= member.finger1Enchant %></td>
           <td><%= member.finger2Enchant %></td>
           <td><%= member.mainHandEnchant %></td>
-          <td><input type="text" class="form-control" id="cotis_<%= index %>"></td>
+          <td>
+            <input type="text" class="form-control"
+            id="cotis_<%= index %>" value="<%= member.commentary %>"
+            onchange="onCommentaryChange(<%= index %>, this.value)"
+            />
+          </td>
           <td>
             <form action="/roster/remove/<%= member.name %>" method="post">
               <button type="submit" class="btn btn-danger">Supprimer</button>
@@ -42,11 +47,25 @@
           </td>
         </tr>
       <% }); %>
-      
+
   </table>
-  <form action="" method="post">
-    <button type="submit" class="btn btn-success">Sauvegarder</button>
-  </form>
+  <button onclick="saveCommentaries()" type="button" class="btn btn-success">Sauvegarder</button>
 </div>
+
+<script>
+const commentaries = [];
+
+function onCommentaryChange(idx, value) {
+  commentaries.push({"index": idx, "value": value});
+}
+
+function saveCommentaries(){
+  $.redirect({
+    url: "/roster/commentaries",
+    values: {commentaries}
+  });
+}
+
+</script>
 
 <% include ./partials/modalAdd %>
